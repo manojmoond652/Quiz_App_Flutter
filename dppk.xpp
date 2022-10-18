@@ -1,0 +1,68 @@
+
+ll fun(vector<vector<ll>> &a, ll i, ll par,vector<bool> &vis, vector<ll> &visnode)
+{
+   // if(vis[i]) return false;
+   visnode.push_back(i);
+   bool f = false;
+   ll res =0;
+  // cout << i+1<<" " << par+1<<" ";
+    for (auto x:a[i])
+    {
+        if(vis[x]==false){
+            vis[x]= true;
+         if(fun(a,x,i,vis,visnode)) f= true;
+        }else{
+            if(x!=par) f= true;
+        }
+    }
+    return f;
+    
+}
+
+int main()
+{
+   //  SPEED;
+   ll t;
+   cin >> t;
+   while(t--)
+   {
+    ll n;
+    cin >> n;
+    ll a[n] , b[n];
+    for (ll i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    for (ll i = 0; i < n; i++)
+    {
+        cin >> b[i];
+    }
+    vector<pair<int , int>> v;
+    for (ll i = 0; i < n; i++)
+    {
+       v.push_back({a[i], a[i]+b[i]});
+    }
+    sort(v.begin(), v.end(), [](pair<int , int> c, pair<int , int> d)
+    {
+        return c.second < d.second;
+    });
+     for (ll i = 0; i < n; i++)
+    {
+       cout << v[i].first<<" " << v[i].second  << endl;
+    }
+    if(n%2==1)
+    {
+        cout << v[(n/2)].first << endl;
+    }else{
+        double x = v[n/2].first;
+        double y = v[(n/2)-1].first;
+        x = (x+y)/2.0;
+        cout << x << endl;
+    }
+
+    
+    
+   }
+}
+
+
